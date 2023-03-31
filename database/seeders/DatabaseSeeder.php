@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user->id
         ]);
 
+        $twits = Twit::all();
+
         // Crear 5 seguidors aleatoris per cada usuari
         $followers = $users->filter(function ($value) use ($user) {
             return $value->id != $user->id; // Evitar que un usuari es segueixi a si mateix
@@ -40,6 +42,10 @@ class DatabaseSeeder extends Seeder
 
         foreach ($followers as $follower) {
             $user->followers()->attach($follower);
+        }
+
+        foreach ($twits as $twit) {
+            
         }
     }
     }

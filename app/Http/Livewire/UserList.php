@@ -21,8 +21,8 @@ class UserList extends Component
     public function getUsers()
     {
         $explodedURL = explode('/', url()->current());
-        $this->user = User::where('username', $explodedURL[4])->first();
-        if($explodedURL[5]== 'followers') {
+        $this->user = User::where('username', $explodedURL[3])->first();
+        if($explodedURL[4]== 'followers') {
             $this->showUsers = $this->user->followers;
         } else {
             $this->showUsers = $this->user->following;

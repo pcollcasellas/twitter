@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Comment;
 use App\Models\Twit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,8 +22,15 @@ class twitFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
             'body' => $this->faker->text,
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Twit $twit) {
+            $comments = Comment::factory(5)->make();
+            $twit->comments()->saveMany($comments);
+        });
     }
 }

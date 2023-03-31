@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Comment;
+use App\Models\Twit;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,19 +28,35 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/users/{user:username}', function($username) {
+    Route::get('/{user:username}', function($username) {
         return view('user-page', [
             'username' => $username
         ]);
     });
-    Route::get('/users/{user:username}/followers', function($username) {
+    Route::get('/{user:username}/followers', function($username) {
         return view('followers', [
             'username' => $username
         ]);
     });
-    Route::get('/users/{user:username}/following', function($username) {
+    Route::get('/{user:username}/following', function($username) {
         return view('following', [
             'username' => $username
+        ]);
+    });
+    Route::get('/{user:username}/status/{twit}', function($username, $twitId) {
+        $twit = Twit::findOrFail($twitId);
+        return view('twit-page', [
+            'username' => $username,
+            'twit' => $twit
+        ]);
+    });
+    Route::get('/{user:username}/status/{twit}/{comment}', function($username, $twitId, $commentId) {
+        $twit = Twit::findOrFail($twitId);
+        $comment = Comment::findOrFail($commentId);
+        return view('twit-page', [
+            'username' => $username,
+            'twit' => $twit,
+            'comment' => $comment
         ]);
     });
 });

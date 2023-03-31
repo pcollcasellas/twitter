@@ -5,7 +5,7 @@
                 {{ $username }} Following
             </h2>
             <div>
-                <a href="/users/{{$username}}" class="mr-1">Go back</a>
+                <a href="/{{$username}}" class="mr-1">Go back</a>
             </div>
         </div>
     </x-slot>
